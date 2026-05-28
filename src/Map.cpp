@@ -6,6 +6,14 @@ Map::Map(int width, int height)
     , m_height(height)
     , m_tiles(width * height)
 {
+    for (int y = 0; y < m_height; y++) {
+        for (int x = 0; x < m_width; x++) {
+            if ((x * y) % 24) {
+                Tile& tile = m_tiles[y * m_width + x];
+                tile.type = TileType::Wall;
+            }
+        }
+    }
 }
 
 Tile& Map::getTile(int x, int y) {
