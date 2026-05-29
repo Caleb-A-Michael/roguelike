@@ -17,7 +17,7 @@ inline const TileData& getTileData(TileType type) {
         // Floor
         { false, sf::Color(100, 100, 100) },
         // Wall
-        { true, sf::Color(0, 0, 0) },
+        { true, sf::Color(50, 50, 50) },
     };
     return data[static_cast<int>(type)];
 }

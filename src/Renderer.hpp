@@ -4,7 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include <vector>
 
-const int TILE_SIZE = 10;
+const int TILE_SIZE = 60;
 
 class Renderer {
 public:

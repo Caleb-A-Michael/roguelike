@@ -1,18 +1,19 @@
 #include "Map.hpp"
+#include "MapLoader.hpp"
 #include "Renderer.hpp"
 #include <SFML/Window.hpp>
 
 int main()
 {
     sf::RenderWindow window;
-    window.create(sf::VideoMode({1280, 1080}), "Roguelike");
+    window.create(sf::VideoMode({1920, 1080}), "Roguelike");
 
-    Map map = Map(128, 108);
-    Renderer renderer = Renderer(128, 108);
+    Map map = MapLoader::load("assets/testMap.txt");
+    Renderer renderer(32, 18);
 
     while (window.isOpen())
     {
-        window.clear();
+        window.clear(sf::Color::Magenta);
         renderer.drawMap(map, window);
         window.display();
 

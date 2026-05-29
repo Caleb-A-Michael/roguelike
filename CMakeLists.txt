@@ -17,3 +17,10 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(roguelike ${SOURCES})
 target_compile_options(roguelike PRIVATE -Wall -Werror)
 target_link_libraries(roguelike PRIVATE sfml-graphics)
+
+add_custom_command(
+    TARGET roguelike POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets
+        $<TARGET_FILE_DIR:roguelike>/assets
+)
