@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Map.hpp"
+#include "Entity.hpp"
 #include "SFML/Graphics.hpp"
 #include <vector>
 
@@ -10,6 +11,7 @@ class Renderer {
 public:
     Renderer(int width, int height);
     void drawMap(const Map& map, sf::RenderWindow& window);
+    void drawEntities(const std::vector<std::unique_ptr<Entity>>& entities, sf::RenderWindow& window);
 private:
     int m_width;
     int m_height;
