@@ -32,3 +32,28 @@ bool Map::inBounds(int x, int y) const {
 
     return true;
 }
+
+bool Map::isOccupied(int x, int y) const {
+    if (!inBounds(x, y)) return true;
+
+    TileData data = getTileData(getTile(x, y).type);
+    return (data.isSolid);
+}
+
+bool Map::isOccupied(int x, int y, int size) const {
+    for (int i = x; i < x + size; i++) {
+        for (int j = y; j < y + size; j++) {
+            if (isOccupied(i, j)) return true;
+        }
+    }
+
+    return false;
+}
+
+bool Map::isOccupied(sf::Vector2i position) const {
+    return isOccupied(position.x, position.y);
+}
+
+bool Map::isOccupied(sf::Vector2i position, int size) const {
+    return isOccupied(position.x, position.y, size);
+}

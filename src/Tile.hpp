@@ -8,7 +8,7 @@ enum class TileType {
 };
 
 struct TileData {
-    bool solid;
+    bool isSolid;
     sf::Color color;
 };
 

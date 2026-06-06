@@ -31,13 +31,13 @@ void Renderer::drawMap(const Map& map, sf::RenderWindow& window) {
 
 void Renderer::drawEntities(const std::vector<std::unique_ptr<Entity>>& entities, sf::RenderWindow& window ) {
     for (const auto& entity : entities) {
-        int size = entity->size * TILE_SIZE / 2;
+        int size = entity->getSize() * TILE_SIZE / 2;
         sf::CircleShape sprite(size);
         
-        sf::Vector2f position = sf::Vector2f(entity->position) * static_cast<float>(TILE_SIZE);
+        sf::Vector2f position = sf::Vector2f(entity->getPosition()) * static_cast<float>(TILE_SIZE);
         sprite.setPosition(position);
 
-        sprite.setFillColor(entity->color);
+        sprite.setFillColor(entity->getColor());
 
         window.draw(sprite);
     }

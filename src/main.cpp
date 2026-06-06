@@ -1,5 +1,6 @@
 #include "GameState.hpp"
 #include "Renderer.hpp"
+#include "PlayerController.hpp"
 #include <SFML/Window.hpp>
 
 int main()
@@ -12,15 +13,17 @@ int main()
 
     while (window.isOpen())
     {
-        window.clear(sf::Color::Magenta);
-        renderer.drawMap(gameState.map, window);
-        renderer.drawEntities(gameState.entities, window);
-        window.display();
-
         while (const std::optional event = window.pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
+
+            PlayerController::handleInput(*event, gameState);
         }
+
+        window.clear(sf::Color::Magenta);
+        renderer.drawMap(gameState.map, window);
+        renderer.drawEntities(gameState.entities, window);
+        window.display();
     }
 }
