@@ -3,6 +3,7 @@
 #include "Map.hpp"
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 class Entity {
 public:

@@ -1,7 +1,5 @@
 #include "PlayerController.hpp"
 
-#include <iostream>
-
 void PlayerController::handleInput(const sf::Event& event, GameState& state) {
     sf::Vector2i moveDirection;
     if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) {
@@ -23,10 +21,9 @@ void PlayerController::handleInput(const sf::Event& event, GameState& state) {
                 moveDirection = {1, 0};
                 break;
             default:
-                moveDirection = {0, 0};
+                return;
         }
 
-        std::cout << moveDirection.x << " " << moveDirection.y << "\n";
         state.player->setPosition(state.map, state.player->getPosition() + moveDirection);
     }
 }

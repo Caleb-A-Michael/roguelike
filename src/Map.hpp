@@ -6,22 +6,18 @@
 
 class Map {
 public:
-    Map(int width, int height);
+    Map(sf::Vector2i size);
 
-    Tile& getTile(int x, int y);
-    const Tile& getTile(int x, int y) const;
+    sf::Vector2i getSize() const;
 
-    int getWidth() const;
-    int getHeight() const;
+    Tile& getTile(sf::Vector2i position);
+    const Tile& getTile(sf::Vector2i position) const;
 
-    bool inBounds(int x, int y) const;
+    bool inBounds(sf::Vector2i position) const;
+    bool isOccupied(sf::Vector2i position, int size = 1) const;
 
-    bool isOccupied(int x, int y) const;
-    bool isOccupied(int x, int y, int size) const;
-    bool isOccupied(sf::Vector2i position) const;
-    bool isOccupied(sf::Vector2i position, int size) const;
-private:
-    int m_width;
-    int m_height;
+    std::vector<sf::Vector2i> getReachablePositions(sf::Vector2i position, int reach, int startArea = 1, int size = 1) const;
+
+    sf::Vector2i m_size;
     std::vector<Tile> m_tiles;
 };

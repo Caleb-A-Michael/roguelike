@@ -2,6 +2,7 @@
 #include "Renderer.hpp"
 #include "PlayerController.hpp"
 #include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 
 int main()
 {
@@ -9,7 +10,7 @@ int main()
     window.create(sf::VideoMode({1920, 1080}), "Roguelike");
 
     GameState gameState("assets/testMap.txt");
-    Renderer renderer(32, 18);
+    Renderer renderer(sf::Vector2i{32, 18});
 
     while (window.isOpen())
     {

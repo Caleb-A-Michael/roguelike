@@ -1,6 +1,7 @@
 #include "MapLoader.hpp"
 #include <fstream>
 #include <stdexcept>
+#include <SFML/System.hpp>
 
 Map MapLoader::load(const std::string& path) {
     std::ifstream file(path);
@@ -13,7 +14,7 @@ Map MapLoader::load(const std::string& path) {
     file >> width >> height;
     file.ignore();
 
-    Map map(width, height);
+    Map map(sf::Vector2i{width, height});
 
     for (int y = 0; y < height; y++) {
         std::string line;
@@ -34,7 +35,7 @@ Map MapLoader::load(const std::string& path) {
                     throw std::runtime_error("Unknown tile character: " + std::string(1, c));
             }
 
-            map.getTile(x, y).type = type;
+            map.getTile(sf::Vector2i{x, y}).type = type;
         }
     }
 

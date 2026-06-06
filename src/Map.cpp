@@ -1,59 +1,48 @@
 #include "Map.hpp"
+
+#include "GridUtils.hpp"
 #include <cassert>
 
-Map::Map(int width, int height)
-    : m_width(width)
-    , m_height(height)
-    , m_tiles(width * height)
+Map::Map(sf::Vector2i size)
+    : m_size(size)
+    , m_tiles(size.x * size.y)
 {
 }
 
-Tile& Map::getTile(int x, int y) {
-    assert(inBounds(x, y));
-    return m_tiles[y * m_width + x];
+sf::Vector2i Map::getSize() const {
+    return m_size;
 }
 
-const Tile& Map::getTile(int x, int y) const {
-    assert(inBounds(x, y));
-    return m_tiles[y * m_width + x];
+Tile& Map::getTile(sf::Vector2i position) {
+    assert(inBounds(position));
+    return m_tiles[position.y * m_size.x + position.x];
 }
 
-int Map::getWidth() const {
-    return m_width;
+const Tile& Map::getTile(sf::Vector2i position) const {
+    assert(inBounds(position));
+    return m_tiles[position.y * m_size.x + position.x];
 }
 
-int Map::getHeight() const {
-    return m_height;
-}
+bool Map::inBounds(sf::Vector2i position) const {
+    int x = position.x;
+    int y = position.y;
 
-bool Map::inBounds(int x, int y) const {
-    if (x < 0 || x >= m_width) return false;
-    if (y < 0 || y >= m_height) return false;
+    if (x < 0 || x >= m_size.x) return false;
+    if (y < 0 || y >= m_size.y) return false;
 
     return true;
 }
 
-bool Map::isOccupied(int x, int y) const {
-    if (!inBounds(x, y)) return true;
+bool Map::isOccupied(sf::Vector2i position, int size) const {
+    if (!inBounds(position)) return true;
 
-    TileData data = getTileData(getTile(x, y).type);
-    return (data.isSolid);
-}
+    std::vector<sf::Vector2i> cells = getOccupyingCells(position, size);
+    for (const auto& cell : cells) {
+        if (!inBounds(cell)) return true;
 
-bool Map::isOccupied(int x, int y, int size) const {
-    for (int i = x; i < x + size; i++) {
-        for (int j = y; j < y + size; j++) {
-            if (isOccupied(i, j)) return true;
-        }
+        TileData data = getTileData(getTile(cell).type);
+        if (data.isSolid) return true;
     }
 
     return false;
-}
-
-bool Map::isOccupied(sf::Vector2i position) const {
-    return isOccupied(position.x, position.y);
-}
-
-bool Map::isOccupied(sf::Vector2i position, int size) const {
-    return isOccupied(position.x, position.y, size);
 }
