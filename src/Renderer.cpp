@@ -2,6 +2,9 @@
 
 #include <SFML/System.hpp>
 
+#include <algorithm>
+#include "GridUtils.hpp"
+
 Renderer::Renderer(sf::Vector2i size)
     : m_size(size)
     , m_grid(size.x * size.y)
@@ -18,15 +21,20 @@ Renderer::Renderer(sf::Vector2i size)
     }
 }
 
-void Renderer::drawMap(const Map& map, sf::RenderWindow& window) {
+void Renderer::drawMap(const GameState& gameState, sf::RenderWindow& window, sf::Vector2i playerPosition) {
     int width = m_size.x;
     int height = m_size.y;
+
+    std::vector<sf::Vector2i> neighbors = gameState.getReachablePositions(playerPosition, 20, 2);
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            const Tile& tile = map.getTile(sf::Vector2i{x, y});
+            const Tile& tile = gameState.map.getTile(sf::Vector2i{x, y});
             sf::RectangleShape& rect = m_grid[y * width + x];
 
             sf::Color color = getTileData(tile.type).color;
+            if (std::ranges::find(neighbors, sf::Vector2i{x, y}) != neighbors.end()) {
+                color = sf::Color::Green;
+            }
             rect.setFillColor(color);
 
             window.draw(rect);

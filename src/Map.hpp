@@ -16,8 +16,6 @@ public:
     bool inBounds(sf::Vector2i position) const;
     bool isOccupied(sf::Vector2i position, int size = 1) const;
 
-    std::vector<sf::Vector2i> getReachablePositions(sf::Vector2i position, int reach, int startArea = 1, int size = 1) const;
-
     sf::Vector2i m_size;
     std::vector<Tile> m_tiles;
 };

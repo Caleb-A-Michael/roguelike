@@ -1,6 +1,7 @@
 #include "Map.hpp"
 
 #include "GridUtils.hpp"
+#include <algorithm>
 #include <cassert>
 
 Map::Map(sf::Vector2i size)

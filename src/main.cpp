@@ -23,7 +23,7 @@ int main()
         }
 
         window.clear(sf::Color::Magenta);
-        renderer.drawMap(gameState.map, window);
+        renderer.drawMap(gameState, window, gameState.player->getPosition());
         renderer.drawEntities(gameState.entities, window);
         window.display();
     }
