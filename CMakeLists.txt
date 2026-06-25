@@ -15,6 +15,7 @@ FetchContent_MakeAvailable(SFML)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(roguelike ${SOURCES})
+target_include_directories(roguelike PRIVATE src)
 target_compile_options(roguelike PRIVATE -Wall -Werror)
 target_link_libraries(roguelike PRIVATE sfml-graphics)
 
